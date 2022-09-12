@@ -1,13 +1,14 @@
 
-calc_metad <- function(data, identifier){
+
+calc_metad <- function(data, identifier, conf, correct_response, response){
   require(metaSDT)
   for(i in unique(data[, identifier])){
     tryCatch({
       
       df = data[data[,identifier]== i,] 
       
-      nR_S1 <- table(df$conf, df$correct_response, df$response)[,,1]
-      nR_S2 <- table(df$conf, df$correct_response, df$response)[,,2]
+      nR_S1 <- table(df[,conf], df[,correct_response], df[,response])[,,1]
+      nR_S2 <- table(df[,conf], df[,correct_response], df[,response])[,,2]
       nR_S1 <- c(rev(nR_S1[,1]), nR_S1[,2])
       nR_S2 <- c(rev(nR_S2[,1]), nR_S2[,2])
       
