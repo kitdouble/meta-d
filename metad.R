@@ -1,4 +1,4 @@
-m_ratio <- function(data, identifier){
+m_ratio <- function(data, identifier, SSE = F){
   
   for(i in unique(data[, identifier])){
     
@@ -16,7 +16,14 @@ m_ratio <- function(data, identifier){
     
     fit_MLE <- fit_meta_d_MLE(nR_S1,nR_S2)
     MLE_M_ratio <- fit_MLE$M_ratio[1]
-    look <- data.frame(ID = i, MLE_M_ratio = MLE_M_ratio)
+    
+    if(SSE == T){
+    fit_SSE <- fit_meta_d_SSE(nR_S1,nR_S2)
+    SSE_M_ratio <- fit_SSE$M_ratio[1]
+    look <- data.frame(ID = i, MLE_M_ratio = MLE_M_ratio, SSE_M_ratio = SSE_M_ratio)
+    } else{
+      look <- data.frame(ID = i, MLE_M_ratio = MLE_M_ratio)
+    }
     
     if(unique(data[,identifier])[1] != i){meta_data <- rbind(meta_data, look)}
     if(unique(data[,identifier])[1] == i){meta_data <- look}
