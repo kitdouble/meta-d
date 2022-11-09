@@ -1,5 +1,6 @@
 m_ratio <- function(data, identifier, stimulus, confidence, accuracy, SSE = F){
   
+  data[,confidence] <- as.factor(data[,confidence])
   for(i in unique(data[, identifier])){
     
     x <- data[data[,identifier] == i,]
