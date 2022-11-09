@@ -34,6 +34,7 @@ nR_S2 = nR_S2 + adj_f
     tryCatch({
     fit_MLE <- fit_meta_d_MLE(nR_S1,nR_S2)
     MLE_M_ratio <- fit_MLE$M_ratio[1]
+    meta_da <- fit_MLE$meta_da[1]
     }, error=function(e){cat("ERROR :", i, "\n")})
     
     if(SSE == T){
