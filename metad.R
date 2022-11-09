@@ -39,11 +39,12 @@ nR_S2 = nR_S2 + adj_f
     if(SSE == T){
       tryCatch({
       fit_SSE <- fit_meta_d_SSE(nR_S1,nR_S2)
+      meta_da <- fit_SSE$meta_da[1]
       SSE_M_ratio <- fit_SSE$M_ratio[1]
       }, error=function(e){cat("ERROR :", i, "\n")})
-      look <- data.frame(ID = i, MLE_M_ratio = MLE_M_ratio, SSE_M_ratio = SSE_M_ratio)
+      look <- data.frame(ID = i, MLE_M_ratio = MLE_M_ratio, meta_da = meta_da, SSE_M_ratio = SSE_M_ratio)
     } else{
-      look <- data.frame(ID = i, MLE_M_ratio = MLE_M_ratio)
+      look <- data.frame(ID = i, MLE_M_ratio = MLE_M_ratio, meta_da = meta_da)
     }
     
     if(unique(data[,identifier])[1] != i){meta_data <- rbind(meta_data, look)}
