@@ -15,6 +15,19 @@ m_ratio <- function(data, identifier, stimulus, confidence, accuracy, SSE = F){
     # In the format A1, A2, A3, B3, B2, B1 (Where A = correct response and B = incorrect, 1 = highest conf, 3 = lowest conf)
     nR_S1 <- c(rev(table(S1[,accuracy], S1[,confidence])[2,]), table(S1[,accuracy], S1[,confidence])[1,])
     nR_S2 <- c(rev(table(S2[,accuracy], S2[,confidence])[1,]), table(S2[,accuracy], S2[,confidence])[2,])
+    
+    # N.B. if nR_S1 or nR_S2 contain zeros, this may interfere with estimation of  meta-d' this adds a small adjustment factor
+    # When using this correction method, it is recommended to add the adjustment 
+    # factor to ALL data for all subjects, even for those subjects whose data is 
+    # not in need of such correction, in order to avoid biases in the analysis 
+    # (cf Snodgrass & Corwin, 1988).
+
+adj_f = 1/length(nR_S1)
+nR_S1 = nR_S1 + adj_f
+nR_S2 = nR_S2 + adj_f
+
+    
+    
     MLE_M_ratio <- NA
     SSE_M_ratio <- NA
     tryCatch({
