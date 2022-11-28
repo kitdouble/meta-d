@@ -12,7 +12,7 @@ m_ratio <- function(data, identifier, stimulus, confidence, accuracy, SSE = F){
     S2 <- x[x[,stimulus] == stims[2], ]
     
     
-    
+     tryCatch({
     # In the format A1, A2, A3, B3, B2, B1 (Where A = correct response and B = incorrect, 1 = highest conf, 3 = lowest conf)
     nR_S1 <- c(rev(table(S1[,accuracy], S1[,confidence])[2,]), table(S1[,accuracy], S1[,confidence])[1,])
     nR_S2 <- c(rev(table(S2[,accuracy], S2[,confidence])[1,]), table(S2[,accuracy], S2[,confidence])[2,])
@@ -31,7 +31,7 @@ m_ratio <- function(data, identifier, stimulus, confidence, accuracy, SSE = F){
     
     MLE_M_ratio <- NA
     SSE_M_ratio <- NA
-    tryCatch({
+   
       fit_MLE <- fit_meta_d_MLE(nR_S1,nR_S2)
       MLE_M_ratio <- fit_MLE$M_ratio[1]
       meta_da <- fit_MLE$meta_da[1]
