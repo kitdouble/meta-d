@@ -11,7 +11,12 @@ m_ratio <- function(data, identifier, stimulus, confidence, accuracy, SSE = F){
     S1 <- x[x[,stimulus] == stims[1], ]
     S2 <- x[x[,stimulus] == stims[2], ]
     
-    
+     S1$correct <- as.factor(S1$correct)
+     S2$correct <- as.factor(S2$correct)
+  
+  levels( S1$correct ) <- c(levels( S1$correct ), c("0", "1") )
+  levels( S2$correct ) <- c(levels( S2$correct ), c("0", "1") )
+  
      tryCatch({
     # In the format A1, A2, A3, B3, B2, B1 (Where A = correct response and B = incorrect, 1 = highest conf, 3 = lowest conf)
     nR_S1 <- c(rev(table(S1[,accuracy], S1[,confidence])[2,]), table(S1[,accuracy], S1[,confidence])[1,])
